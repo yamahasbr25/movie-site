@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilmSave21 - Portal Film Terlengkap</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --text: #f1f1f1;
+            --light-bg: #2d2d44;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--highlight);
+            font-size: 2rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--highlight);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem;
+            transition: color 0.3s;
+            border-radius: 4px;
+        }
+        
+        nav a:hover, nav a.active {
+            color: var(--highlight);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-bar {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .search-bar input {
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 30px;
+            width: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            outline: none;
+        }
+        
+        .search-bar button {
+            background: var(--highlight);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background: #ff2e4f;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                         url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--highlight);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--highlight);
+        }
+        
+        .btn:hover {
+            background: #ff2e4f;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+        }
+        
+        .btn-outline:hover {
+            background: var(--highlight);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--highlight);
+            display: inline-block;
+        }
+        
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .post-card {
+            background: var(--light-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .post-img {
+            height: 200px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .post-content {
+            padding: 1.5rem;
+        }
+        
+        .post-category {
+            background: var(--accent);
+            color: var(--highlight);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
+        
+        .post-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            display: block;
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        .post-excerpt {
+            font-size: 0.95rem;
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+        
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+        
+        .admin-access {
+            text-align: center;
+            margin: 4rem 0;
+            padding: 2rem;
+            background: var(--light-bg);
+            border-radius: 10px;
+        }
+        
+        .admin-access h2 {
+            margin-bottom: 1.5rem;
+            color: var(--highlight);
+        }
+        
+        .related-posts {
+            margin-top: 3rem;
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .related-post {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            background: var(--light-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .related-post:hover {
+            transform: translateX(5px);
+        }
+        
+        .related-img {
+            width: 80px;
+            height: 60px;
+            border-radius: 5px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .related-content {
+            flex: 1;
+        }
+        
+        .related-content h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .related-content p {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        
+        footer {
+            background: var(--secondary);
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--highlight);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--highlight);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            color: var(--text);
+            font-size: 1.2rem;
+            transition: background 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--highlight);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Admin Panel Styles */
+        .admin-panel {
+            display: none;
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 3rem 0;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .admin-header h2 {
+            color: var(--highlight);
+        }
+        
+        .admin-controls {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .admin-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .posts-list {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+            border-radius: 10px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .post-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .post-item h4 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .post-item p {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .post-actions button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .post-actions button.delete {
+            background: var(--highlight);
+        }
+        
+        .post-actions button:hover {
+            opacity: 0.8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .search-bar input {
+                width: 100%;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .admin-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-film"></i>
+            <h1>Film<span>Save21</span></h1>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Beranda</a></li>
+                <li><a href="#">Film Terbaru</a></li>
+                <li><a href="#">Serial TV</a></li>
+                <li><a href="#">Genre</a></li>
+                <li><a href="#">Koleksi</a></li>
+                <li><a href="admin.html">Admin Panel</a></li>
+            </ul>
+        </nav>
+        
+        <div class="search-bar">
+            <input type="text" placeholder="Cari film...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Nonton Film Terbaik dengan Kualitas HD</h2>
+            <p>Ribuan film dan serial TV tersedia untuk ditonton secara gratis. Update setiap hari dengan konten terbaru dari seluruh dunia.</p>
+            <button class="btn">Jelajahi Sekarang</button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2 class="section-title">Film Terbaru</h2>
+        <div class="posts-grid" id="posts-container">
+            <!-- Post content will be generated by JavaScript -->
+        </div>
+        
+        <!-- Admin Access Section -->
+        <div class="admin-access">
+            <h2><i class="fas fa-lock"></i> Akses Admin Panel</h2>
+            <p>Untuk mengelola konten website, silahkan masuk ke admin panel</p>
+            <a href="admin.html" class="btn btn-outline" style="margin-top: 1rem;">
+                <i class="fas fa-cog"></i> Buka Admin Panel
+            </a>
+        </div>
+        
+        <!-- Related Posts -->
+        <div class="related-posts">
+            <h2 class="section-title">Film Terkait</h2>
+            <div class="related-grid">
+                <div class="related-post">
+                    <div class="related-img" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=185&q=80');"></div>
+                    <div class="related-content">
+                        <h4>Mission Impossible 7</h4>
+                        <p>Action, Adventure</p>
+                    </div>
+                </div>
+                
+                <div class="related-post">
+                    <div class="related-img" style="background-image: url('https://images.unsplash.com/photo-1542204165-65bf26472b9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=185&q=80');"></div>
+                    <div class="related-content">
+                        <h4>Spider-Man: Across the Spider-Verse</h4>
+                        <p>Animation, Action</p>
+                    </div>
+                </div>
+                
+                <div class="related-post">
+                    <div class="related-img" style="background-image: url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=185&q=80');"></div>
+                    <div class="related-content">
+                        <h4>Fast X</h4>
+                        <p>Action, Thriller</p>
+                    </div>
+                </div>
+                
+                <div class="related-post">
+                    <div class="related-img" style="background-image: url('https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=185&q=80');"></div>
+                    <div class="related-content">
+                        <h4>Scream VI</h4>
+                        <p>Horror, Mystery</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Tentang FilmSave21</h3>
+                <p>FilmSave21 adalah portal film terbesar di Indonesia yang menyediakan berbagai film dan serial TV dengan kualitas terbaik secara gratis.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Link Cepat</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Beranda</a></li>
+                    <li><a href="#">Film Terbaru</a></li>
+                    <li><a href="#">Serial TV</a></li>
+                    <li><a href="#">Genre Film</a></li>
+                    <li><a href="#">Koleksi</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Kategori Populer</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Drama</a></li>
+                    <li><a href="#">Comedy</a></li>
+                    <li><a href="#">Horror</a></li>
+                    <li><a href="#">Sci-Fi</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Kontak Kami</h3>
+                <p><i class="fas fa-envelope"></i> info@filmsave21.com</p>
+                <p><i class="fas fa-phone"></i> +62 21 1234 5678</p>
+                <p><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</p>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 FilmSave21. Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample posts data
+        let postsData = JSON.parse(localStorage.getItem('filmsave21_posts')) || [
+            {
+                id: 1,
+                title: "Oppenheimer - Kisah Sang Pencipta Bom Atom",
+                category: "Drama",
+                excerpt: "Film biografi tentang J. Robert Oppenheimer, fisikawan teoretis yang memimpin Proyek Manhattan...",
+                date: "15 Juli 2023",
+                views: "124.5K",
+                image: "https://images.unsplash.com/photo-1682687220067-dced9a881b56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 2,
+                title: "Barbie - Petualangan di Dunia Nyata",
+                category: "Comedy",
+                excerpt: "Barbie hidup di Barbie Land yang sempurna, namun setelah mengalami krisis eksistensial...",
+                date: "21 Juli 2023",
+                views: "98.3K",
+                image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 3,
+                title: "Mission Impossible: Dead Reckoning Part One",
+                category: "Action",
+                excerpt: "Ethan Hunt dan tim IMF harus melacak senjata baru yang mengerikan yang mengancam umat manusia...",
+                date: "12 Juli 2023",
+                views: "156.2K",
+                image: "https://images.unsplash.com/photo-1595769816263-9b910be24d5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 4,
+                title: "Spider-Man: Across the Spider-Verse",
+                category: "Animation",
+                excerpt: "Miles Morales kembali untuk petualangan lain melalui Multiverse bersama Gwen Stacy...",
+                date: "2 Juni 2023",
+                views: "210.7K",
+                image: "https://images.unsplash.com/photo-1542204165-65bf26472b9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+            }
+        ];
+        
+        // Save to localStorage
+        localStorage.setItem('filmsave21_posts', JSON.stringify(postsData));
+        
+        // DOM Elements
+        const postsContainer = document.getElementById('posts-container');
+        
+        // Render posts
+        function renderPosts() {
+            postsContainer.innerHTML = '';
+            
+            postsData.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post-card';
+                postElement.innerHTML = `
+                    <div class="post-img" style="background-image: url('${post.image}')"></div>
+                    <div class="post-content">
+                        <span class="post-category">${post.category}</span>
+                        <a href="#" class="post-title">${post.title}</a>
+                        <p class="post-excerpt">${post.excerpt}</p>
+                        <div class="post-meta">
+                            <span>${post.date}</span>
+                            <span><i class="fas fa-eye"></i> ${post.views}</span>
+                        </div>
+                    </div>
+                `;
+                postsContainer.appendChild(postElement);
+            });
+        }
+        
+        // Initialize
+        renderPosts();
+    </script>
+</body>
+</html>
